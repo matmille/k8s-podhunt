@@ -7,7 +7,7 @@ RUN go mod vendor && go build -o ./k8s-podhunt .
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.4
 COPY --from=builder /go/src/github.com/vrutkovs/k8s-podhunt/k8s-podhunt /bin/k8s-podhunt
-RUN dd if=/dev/zero of=out bs=1G count=10 iflag=fullblock
+RUN dd if=/dev/random of=out bs=1G count=10 iflag=fullblock
 RUN rm -f out
 WORKDIR /srv
 ENTRYPOINT ["/bin/k8s-podhunt"]
