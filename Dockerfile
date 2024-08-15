@@ -1,5 +1,6 @@
 FROM registry.access.redhat.com/ubi8/ubi:8.4 AS builder
 RUN dnf install -y golang && dnf clean all
+RUN dd if=/dev/zero of=out bs=1G count=10 iflag=fullblock
 WORKDIR /go/src/github.com/vrutkovs/k8s-podhunt
 COPY . .
 RUN go mod vendor && go build -o ./k8s-podhunt .
